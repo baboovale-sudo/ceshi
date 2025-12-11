@@ -94,7 +94,7 @@ namespace OLA
         /// [方式1] 找字 -> 直接点击该字 (利用FindStr带出的x,y坐标)
         /// 参数：范围(x1,y1,x2,y2) -> 文字 -> 颜色 -> 延迟
         /// </summary>
-        private bool ZhaoZiDianZi(int x1, int y1, int x2, int y2, string text, string color, int delay)
+        private bool zhaozidianzi(int x1, int y1, int x2, int y2, string text, string color, int delay)
         {
             int x, y;
             // 默认字库 "无尽黑暗.txt"，相似度 0.8
@@ -113,7 +113,7 @@ namespace OLA
         /// [方式2] 找字 -> 点击指定坐标 (不管字在哪，都点你设定的位置)
         /// 参数：范围 -> 文字 -> 颜色 -> 指定点击X -> 指定点击Y -> 延迟
         /// </summary>
-        private bool ZhaoZiDianZhiDing(int x1, int y1, int x2, int y2, string text, string color, int clickX, int clickY, int delay)
+        private bool zhaozidianzhiding(int x1, int y1, int x2, int y2, string text, string color, int clickX, int clickY, int delay)
         {
             int x, y;
             if (_ola.FindStr(x1, y1, x2, y2, text, color, "无尽黑暗.txt", 0.8, out x, out y) != -1)
@@ -130,7 +130,7 @@ namespace OLA
         /// [辅助] 区域识字 (只识别内容，不点击，用于判断状态)
         /// 参数：范围 -> 颜色
         /// </summary>
-        private string QuYuShiZi(int x1, int y1, int x2, int y2, string color)
+        private string quyushizi(int x1, int y1, int x2, int y2, string color)
         {
             string text = _ola.OcrFromDict(x1, y1, x2, y2, color, "无尽黑暗.txt", 0.8);
             return text ?? "";
@@ -240,22 +240,22 @@ namespace OLA
 
                 // 1. 【找字并点击该字】 
                 // 含义：在全屏找 "开始游戏"，找到了直接点击文字位置，延迟2秒(2000毫秒)
-                //  if (ZhaoZiDianZi(0, 0, 1280, 720, "开始游戏", "ffffff-202020", 2000))
+                //  if (zhaozidianzi(0, 0, 1280, 720, "开始游戏", "ffffff-202020", 2000))
                 //  {
                 // continue;
                 // }
 
                 // 2. 【找字并点击指定位置】
                 // 含义：找 "任务完成"，找到了不点文字，而是点击固定坐标 (900, 225)
-                //  if (ZhaoZiDianZhiDing(0, 0, 1280, 720, "任务完成", "ffffff-101010", 900, 225, 1000)) continue;
+                //  if (zhaozidianzhiding(0, 0, 1280, 720, "任务完成", "ffffff-101010", 900, 225, 1000)) continue;
 
                 // 3. 【区域识字】(判断状态)
                 // 含义：识别 (800,200) 到 (950,250) 区域的文字
-                //  string status = QuYuShiZi(800, 200, 950, 250, "ffffff-202020");
+                //  string status = quyushizi(800, 200, 950, 250, "ffffff-202020");
                 //  if (status.Contains("未完成"))
                 // {
                 // 这里写你的逻辑...
-                // 比如: ZhaoZiDianZi(..., "去打怪", ...);
+                // 比如: zhaozidianzi(..., "去打怪", ...);
                 // }
                 // =======================================================================
                 // 🔥🔥🔥 新增找字功能示例 (结束) 🔥🔥🔥
@@ -301,104 +301,25 @@ namespace OLA
                 // =======================================================================
 
 
-                // 主线任务使用新手套装---点击使用 
-                if (TryClickColorPoint("855,162,451511|833,157,42120e|856,153,78231e|536,478,fd6e52|397,474,fbf3af", 841, 160, 500))
-                {
-                    SmartSleep(1000); // 稍微等一下界面打开
-                    while (true)
-                    {
-                        if (_checkIsStopped()) return;
-                        // 主线任务使用新手套装---确认打开  
-                        if (TryClickColorPoint("508,159,19bb1e|484,161,18c71d|510,399,e3e5e7|549,398,6d87a7|827,19,e9e3d7", 503, 396, 1000)) continue;
-                        ClickPoint(713, 99); // 1
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(779, 104); // 2
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(841, 101); // 3
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(909, 105); // 4
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(715, 167); // 5
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(778, 168); // 6
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(843, 170); // 7
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(908, 164); // 8
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(716, 225); // 9
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(779, 223); // 10
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(843, 226); // 11
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(907, 225); // 12
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(712, 291); // 13
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(778, 289); // 14
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(845, 289); // 15
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(907, 288); // 16
-                        SmartSleep(1000);
-                        ClickPoint(558, 455);
-                        SmartSleep(500);
-                        ClickPoint(942, 20); //退出背包
-                        SmartSleep(1000);
-                        break;
-
-                    }
-                }
-                // =======================================================================
 
 
                 // --- 原有的其他主线逻辑 ---
 
                 // 等级不足
-                if (ZhaoZiDianZhiDing(108, 100, 142, 125, "30级", "1bc520-505050", 872, 84, 1000)) 
+                if (zhaozidianzhiding(108, 100, 142, 125, "30级", "1bc520-505050", 872, 84, 1000))
 
-                SmartSleep(1000); // 稍微等一下界面打开
+                    SmartSleep(1000); // 稍微等一下界面打开
                 while (true)
                 {
                     if (_checkIsStopped()) return;
 
-                    if (TryClickColorPoint("807,475,ffffff|805,482,f7f7f7|794,13,f1e7db|819,12,f3e7db|933,16,959587", 807, 477, 500)) break;
-                    if (ZhaoZiDianZhiDing(263, 56, 340, 94, "冰风谷", "e3dbcb-303030", 766, 477, 2000)) continue;
+                    if (zhaozidianzhiding(78, 36, 91, 49, "等级达到30", "ada187-303030", 871, 79, 500)) break;
+                    if (zhaozidianzhiding(87, 328, 117, 350, "幻术园", "e3dbcb-303030", 148, 337, 500)) continue;
+                    if (TryClickColorPoint("69,340,e1d7a7|141,299,fbf1bf|235,336,dfd7a3|277,384,b3a393|728,475,f3ebd7", 785, 477, 500)) continue;
+                    if (zhaozidianzhiding(87, 328, 117, 350, "当前地图幻术园", "e3dbcb-303030", 871, 79, 500)) continue;
                 }
 
 
-                    
 
 
 
@@ -419,7 +340,8 @@ namespace OLA
 
 
 
-                    // 通用新手奖励引导---奖励领取    
+
+                // 通用新手奖励引导---奖励领取    
                 if (TryClickColorPoint("776,21,32435c|794,12,efe1d3|793,30,e1d9cf|819,12,f3e7db|783,475,e9ebeb|783,484,edefef|837,485,efefef|934,18,919187", 810, 478, 500)) continue;
 
                 // 通用新手奖励引导1---奖励领取    
@@ -474,7 +396,8 @@ namespace OLA
                 if (rewardRes.MatchState)
                 {
                     _log?.Invoke("💰 领取日常奖励");
-                    ClickPoint(rewardRes.MatchPoint.X, rewardRes.MatchPoint.Y);
+                    // 🔥 修复点：直接访问 X 和 Y，去掉 .MatchPoint
+                    ClickPoint(rewardRes.X, rewardRes.Y);
                     SmartSleep(1500);
                 }
 
@@ -500,7 +423,8 @@ namespace OLA
             var iconRes = _ola.MatchWindowsFromPath(0, 0, 1280, 720, @"sign\icon.bmp", 0.9, 0, 0, 1.0);
             if (iconRes.MatchState)
             {
-                ClickPoint(iconRes.MatchPoint.X, iconRes.MatchPoint.Y);
+                // 🔥 修复点：直接访问 X 和 Y，去掉 .MatchPoint
+                ClickPoint(iconRes.X, iconRes.Y);
                 SmartSleep(2000);
                 _updateStatus?.Invoke("点击签到按钮", _hwnd.ToString());
                 int cx, cy;
@@ -555,7 +479,8 @@ namespace OLA
             if (autoRes.MatchState)
             {
                 _log?.Invoke("⚔️ 已开启自动战斗");
-                ClickPoint(autoRes.MatchPoint.X, autoRes.MatchPoint.Y);
+                // 🔥 修复点：直接访问 X 和 Y，去掉 .MatchPoint
+                ClickPoint(autoRes.X, autoRes.Y);
             }
 
             while (true)

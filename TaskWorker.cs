@@ -397,6 +397,7 @@ namespace OLA
             {
                 _lastStatusMsg = status;
                 StatusCallback?.Invoke(RowIndex, status, hwnd);
+                StatusCallback?.Invoke(RowIndex, status, hwnd);
             }
         }
 
